@@ -2,13 +2,19 @@
   <v-app>
     <v-app-bar
       app
-      color="green">
+      color="primary">
       <div class="d-flex align-center">
-        <h1> API - DOC </h1>
+        <h1><strong> API - DOC </strong></h1>
       </div>
     </v-app-bar>
     <v-content>
-      <router-view/>
+      <v-navigation-drawer
+      src="https://cdn.vuetifyjs.com/images/backgrounds/bg-2.jpg"
+      width="100%"
+      permanent
+      >
+        <router-view/>
+      </v-navigation-drawer>
     </v-content>
   </v-app>
 </template>
