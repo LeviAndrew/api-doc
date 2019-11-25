@@ -9,7 +9,7 @@
     </v-app-bar>
     <v-content>
       <v-navigation-drawer
-      src="https://cdn.vuetifyjs.com/images/backgrounds/bg-2.jpg"
+      src="https://image.shutterstock.com/image-photo/abstract-grunge-dark-navy-background-260nw-386723980.jpg"
       width="100%"
       permanent
       >
