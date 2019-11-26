@@ -22,8 +22,14 @@
                 @addItem="addItem"
                 @delItens="delItens"/>
 
-            <model-parameters 
+            <!--<model-parameters 
                 v-if="apiData.method === 'PUT' || apiData.method === 'POST'"
+                title="Body"
+                arrayName="body"
+                :items="body"
+                @addItem="addItem"
+                @delItens="delItens"/>-->
+            <model-body
                 title="Body"
                 arrayName="body"
                 :items="body"
@@ -35,12 +41,14 @@
 
 <script>
 import ModelParameters from '../components/ModelParameters.vue'
+import ModelBody from '../components/ModelBody.vue'
 import { mapMutations } from 'vuex'
 import {mapState} from 'vuex'
 export default {
     name: "PageParameters",
     components: {
         ModelParameters,
+        ModelBody,
     },
     data: () => ({
         headers: [],
@@ -55,6 +63,7 @@ export default {
     },
     methods: {
         addItem (eventData) {
+            console.log('addItem no pai', eventData);
             this[eventData.arrayName].push(eventData.data);
         },
         delItens (eventData) {

@@ -12,15 +12,13 @@
                             <v-dialog v-model="dialog" max-width="500px">
                                 <v-card>
                                     <v-card-text>
-                                    <v-text-field v-model="dialogData.chave" label="Chave" required></v-text-field>
-                                    <v-text-field v-model="dialogData.valor" label="Valor" required></v-text-field>
-
+                                        <h2>{{ title }}</h2>                                                                              
+                                        <v-text-field v-model="dialogData.chave" label="Chave" required></v-text-field>
+                                        <v-text-field v-model="dialogData.valor" label="Valor" required></v-text-field>
                                     </v-card-text>
-
                                     <v-card-actions>
                                     <v-spacer></v-spacer>
-
-                                    <v-btn text color="primary" @click="addItens" :disabled="validaBtn">Save</v-btn>
+                                        <v-btn text color="primary" @click="addItens" :disabled="validaBtn">Save</v-btn>
                                     </v-card-actions>
                                 </v-card>
                             </v-dialog>                
