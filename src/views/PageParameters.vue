@@ -1,26 +1,27 @@
 <template>
     <v-container fluid>
-        <v-card class="mx-auto" max-width="1500" outlined>
+        <v-card class="mx-auto mt-3 mb-3" color="grey" max-width="1400" outlined>
             <model-parameters
                 title="Header"
                 arrayName="headers"
                 :items="headers"
                 @addItem="addItem"
                 @delItens="delItens"
-            />
+                class="mx-auto mb-3"/>
             <model-parameters
                 title="Params"
                 arrayName="params"
                 :items="params"
                 @addItem="addItem"
                 @delItens="delItens"
-            />
+                class="mx-auto mb-3"/>
             <model-parameters
                 title="Query"
                 arrayName="query"
                 :items="query"
                 @addItem="addItem"
-                @delItens="delItens"/>
+                @delItens="delItens"
+                class="mx-auto mb-3"/>
 
             <!--<model-parameters 
                 v-if="apiData.method === 'PUT' || apiData.method === 'POST'"
@@ -34,7 +35,8 @@
                 arrayName="body"
                 :items="body"
                 @addItem="addItem"
-                @delItens="delItens"/>
+                @delItens="delItens"
+                class="mx-auto mb-3"/>
         </v-card>
     </v-container>
 </template>

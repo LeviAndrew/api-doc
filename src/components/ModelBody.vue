@@ -17,11 +17,21 @@
                                         </div>
                                         <v-text-field v-model="dialogData.chave" label="Chave" required></v-text-field>
                                         <v-select v-model="dialogData.type" :items="types" label="Type" required></v-select>
-                                        <v-text-field v-if="dialogData.type === 'Valor'" v-model="dialogData.valor" label="Valor" required></v-text-field>                                        
+                                        <v-text-field v-if="dialogData.type === 'Valor'" v-model="dialogData.valor" label="Valor" required></v-text-field>
+                                        <!-- <v-btn text v-if="dialogData.type === 'JSON'" color="primary" @click="addJSON" :disabled="validaBtn"><v-icon>mdi-plus</v-icon></v-btn> -->
                                         <div v-if="dialogData.type === 'JSON'">
                                             <div v-for="(x, index) in jsonArray" :key="index">
                                                 <v-text-field v-model="x.key" label="Key" required></v-text-field>
-                                            <v-text-field v-model="x.value" label="Value" required></v-text-field>
+                                                <v-select v-model="x.type" :items="types" label="Type" required></v-select>
+                                                <v-text-field v-if="x.type === 'Valor'" v-model="x.value" label="Valor" required></v-text-field>
+                                                <!-- <v-btn text v-if="x.type === 'JSON'" color="primary" @click="addJSON" :disabled="validaBtn"><v-icon>mdi-plus</v-icon></v-btn> -->
+                                            </div>
+                                        </div>
+                                        <div v-if="dialogData.type === 'Array'">
+                                            <div v-for="(y, index) in aArray" :key="index">
+                                                <v-select v-model="y.type" :items="types" label="Type" required></v-select>
+                                                <v-text-field v-if="y.type === 'Valor'" v-model="y.value" label="Valor" required></v-text-field>
+                                                <!-- <v-btn text v-if="x.type === 'JSON'" color="primary" @click="addJSON" :disabled="validaBtn"><v-icon>mdi-plus</v-icon></v-btn> -->
                                             </div>
                                         </div>
 
@@ -29,7 +39,7 @@
                                     <v-card-actions>
                                     <v-spacer></v-spacer>
                                         <v-btn text v-if="dialogData.type === 'JSON'" color="primary" @click="addJSON" :disabled="validaBtn"><v-icon>mdi-plus</v-icon></v-btn>
-                                        <v-btn text v-if="dialogData.type === 'Array'" color="primary" @click="selectType" :disabled="validaBtn"><v-icon>mdi-plus</v-icon></v-btn>
+                                        <v-btn text v-if="dialogData.type === 'Array'" color="primary" @click="addArray" :disabled="validaBtn"><v-icon>mdi-plus</v-icon></v-btn>
                                         <v-btn text color="primary" @click="addItens" :disabled="validaBtn">Confirmar</v-btn>
                                     </v-card-actions>
                                 </v-card>
@@ -53,6 +63,11 @@
                                         <td v-if="Array.isArray(item.valor)">
                                           <v-btn text color="blue" @click="showDialogJson(item.valor)">
                                             <strong>JSON</strong>
+                                          </v-btn>
+                                        </td>
+                                        <td v-else-if="Array.isArray(item.valor)">
+                                          <v-btn text color="blue" @click="showDialogArray(item.valor)">
+                                            <strong>Array</strong>
                                           </v-btn>
                                         </td>
                                         <td v-else>{{ item.valor }}</td>
@@ -84,6 +99,15 @@
             </v-card-text>
           </v-card>
         </v-dialog>
+        <v-dialog v-model="dialogArray" max-width="600px">
+          <v-card>
+            <v-card-text>
+              <div class="d-flex align-center">
+                {{ arrayToShow }}
+              </div>
+            </v-card-text>
+          </v-card>
+        </v-dialog>
     </v-row>
 </template>
 
@@ -111,7 +135,9 @@ export default {
     data: () => ({
         dialog: false,
         dialogJason: false,
+        dialogArray: false,
         jsonToShow: [],
+        arrayToShow: [],
         dialogData: {
             chave: '',
             valor: '',
@@ -119,6 +145,7 @@ export default {
         },
         types: ['Valor', 'JSON', 'Array'],
         jsonArray: [],
+        aArray: [],
     }),
     computed: {
         validaBtn () {
@@ -134,6 +161,10 @@ export default {
             this.dialogData.valor = this.jsonArray;
             this.jsonArray = [];
           }
+          if(this.dialogData.type === "Array"){
+            this.dialogData.valor = this.aArray;
+            this.aArray = [];
+          }
           this.$emit("addItem", {
               arrayName: this.arrayName,
               data: this.dialogData,
@@ -146,19 +177,31 @@ export default {
             this.$emit("delItens", {
                 arrayName: this.arrayName,
                 data:index,
-                jsonArray: index
+                jsonArray: index,
+                aArray: index
             });
         },
         addJSON () {
             this.jsonArray.push({
                 key: '',
+                type: '',
+                value: '',
+            })
+        },
+        addArray () {
+            this.aArray.push({
+                type: '',
                 value: '',
             })
         },
         showDialogJson(valorParaMostrar){
           this.jsonToShow = valorParaMostrar;
           this.dialogJason = true;
-        }
+        },
+        showDialogArray(mostrarValor){
+          this.jsonToShow = mostrarValor;
+          this.dialogArray = true;
+        },
     }
 }
 </script>

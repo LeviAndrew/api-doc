@@ -47,12 +47,11 @@
           required
         ></v-select>
       </v-col>
-      <v-btn class="ml-5" :elevation="15"
+      <v-btn class="ml-4" :elevation="15"
       :disabled="validaBtn" @click="prox"
       color="primary">next</v-btn>
     </v-card>
   </v-container>
-  </v-navigation-drawer>
 </template>
 
 <script>
